@@ -17,8 +17,28 @@ app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true}));
 
-app.get('/login',  function(req, res){
-  res.json("login route is working");
+app.get('/',  function(req, res){
+  res.send(html);
+});
+
+app.post('/signup', function(req, res){
+  var user  = new User();
+  user.name  = req.body.name;
+  user.email  = req.body.email;
+  user.password  = req.body.password;
+
+  User.findOne({email: req.body.email}, function(err, existingUser){
+    if (existingUser){
+      res.send("Account with that email already exists");
+      return res.redirect("/");
+    } else {
+      user.save(function(err, user){
+        if (err) return (err);
+        res.json(user);
+      });
+    }
+  });
+
 });
 
 app.listen(secret.port, function(err){
