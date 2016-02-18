@@ -75,6 +75,23 @@ app.post('/addfavorite', function(req, res){
   });
 });
 
+app.post('/addresults', function(req, res){
+  User.findOneAndUpdate({ email: req.body.email.toLowerCase()}, {$push:{winnings: req.body.betresult, scores: req.body.score}} , function(err, user){
+    if (err){
+      console.log(err);
+      return;
+    }
+
+    if (!user){
+      console.log("User Not Found");
+      return res.redirect("/");
+    }
+    res.json(user);
+  });
+});
+
+
+
 // add course to database
 app.post('/createcourse', function(req, res){
   var course  = new Course();
@@ -98,9 +115,11 @@ app.post('/createcourse', function(req, res){
 });
 // find courses by city
 app.post('/coursecity', function(req, res){
-  Course.find({city: req.body.city}, function(err, course){
-    if (err) return done(err);
-
+  Course.find({city: req.body.city}, 'coursename', function(err, course){
+    if (err){
+     console.log(err);
+     return;
+    }
     if (!course) {
       console.log("No Courses Found");
       return res.redirect("/");
