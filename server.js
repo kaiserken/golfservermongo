@@ -29,7 +29,7 @@ app.post('/signup', function(req, res){
 
   User.findOne({email: req.body.email}, function(err, existingUser){
     if (existingUser){
-      res.send("Account with that email already exists");
+      console.log("Account with that email already exists");
       return res.redirect("/");
     } else {
       user.save(function(err, user){
@@ -38,8 +38,24 @@ app.post('/signup', function(req, res){
       });
     }
   });
-
 });
+
+app.post('/signin', function(req, res){
+  User.findOne({ email: req.body.email}, function(err, user){
+    if (err) return done(err);
+
+    if (!user) {
+      console.log("Not Found");
+      return res.redirect("/");
+    }
+    if (!user.comparePassword(req.body.password)){
+      console.log("Wrong Password");
+      return res.redirect("/");
+    }
+    res.json(user);
+  });
+});
+
 
 app.listen(secret.port, function(err){
   if (err) throw err;
