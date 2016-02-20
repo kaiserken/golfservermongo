@@ -32,7 +32,7 @@ app.post('/signup', function(req, res){
   User.findOne({email: req.body.email.toLowerCase()}, function(err, existingUser){
     if (existingUser){
       console.log("Account with that email already exists");
-      return res.redirect("/");
+      return res.send("Account with that email already exists");
     } else {
       user.save(function(err, user){
         if (err) return (err);
@@ -45,15 +45,15 @@ app.post('/signup', function(req, res){
 // sign in and verify user password
 app.post('/signin', function(req, res){
   User.findOne({ email: req.body.email.toLowerCase()}, function(err, user){
-    if (err) return done(err);
+    if (err) return (err);
 
     if (!user) {
       console.log("Not Found");
-      return res.redirect("/");
+      return res.send("Not Found");
     }
     if (!user.comparePassword(req.body.password)){
       console.log("Wrong Password");
-      return res.redirect("/");
+      return res.send("Wrong Password");
     }
     res.json(user);
   });
