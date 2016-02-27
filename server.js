@@ -115,7 +115,22 @@ app.post('/createcourse', function(req, res){
 });
 // find courses by city
 app.post('/coursecity', function(req, res){
-  Course.find({city: req.body.city}, 'coursename', function(err, course){
+  Course.find({city: req.body.city}, function(err, course){
+    if (err){
+     console.log(err);
+     return;
+    }
+    if (!course) {
+      console.log("No Courses Found");
+      return res.redirect("/");
+    }
+    res.json(course);
+  });
+});
+
+// find courses by Name
+app.post('/courseinfo', function(req, res){
+  Course.find({coursename: req.body.coursename}, function(err, course){
     if (err){
      console.log(err);
      return;
