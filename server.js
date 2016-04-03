@@ -5,6 +5,9 @@ var bodyParser = require('body-parser');
 var secret = require('./config/secret');
 var User  = require('./models/user');
 var Course  = require('./models/course');
+// used for bulk add of courses to data base
+// var fs = require('fs');
+// var data = JSON.parse(fs.readFileSync("SocalRegionCourses.json", 'utf8'));
 
 mongoose.connect(secret.database, function(err){
   if (err) {
@@ -92,6 +95,7 @@ app.post('/addresults', function(req, res){
 
 
 
+
 // add course to database
 app.post('/createcourse', function(req, res){
   var course  = new Course();
@@ -115,7 +119,7 @@ app.post('/createcourse', function(req, res){
 });
 // find courses by city
 app.post('/coursecity', function(req, res){
-  Course.find({city: req.body.city}, function(err, course){
+  Course.find({city: req.body.city.toLowerCase()}, function(err, course){
     if (err){
      console.log(err);
      return;
@@ -142,7 +146,33 @@ app.post('/courseinfo', function(req, res){
     res.json(course);
   });
 });
-
+// code to mass enter all the courses in So Cal the database - uses SocalRegionCourses.json
+// var databaseEntry = function (i) {
+// 	console.log(i);
+// 	var j = data[i];
+//   var course  = new Course();
+//   course.coursename  = j.name;
+//   course.city  = j.city.toLowerCase();
+//   course.state  = 'CA';
+//   course.coursepar = j.par;
+//   course.coursehcp  = j.hdcp;
+//
+//   course.save(function(err, course){
+//     if (err) return (err);
+//   }).then(function () {
+// 		i++;
+//
+// 		//manually removed error, should be automated
+// 		if (i == 97) {
+// 			i++
+// 		}
+//
+// 		if (i < data.length - 1) {
+// 			databaseEntry(i)
+// 		}
+// 	})
+// }
+// databaseEntry(0);
 
 
 
