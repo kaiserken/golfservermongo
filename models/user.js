@@ -8,7 +8,11 @@ var UserSchema = new Schema({
   password: String,
   name: String,
   favorites: [],
-  winnings: [Number],
+  nassautotals: [Number],
+  skinstotals:[Number],
+  roundrobintotals: [Number],
+  matchplaytotals: [Number],
+  ninestotals:[Number],
   scores: [Number],
 });
 

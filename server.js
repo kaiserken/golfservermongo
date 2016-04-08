@@ -79,12 +79,11 @@ app.post('/addfavorite', function(req, res){
 });
 
 app.post('/addresults', function(req, res){
-  User.findOneAndUpdate({ email: req.body.email.toLowerCase()}, {$push:{winnings: req.body.betresult, scores: req.body.score}} , function(err, user){
+  User.findOneAndUpdate({ email: req.body.email.toLowerCase()}, {$push:{scores: req.body.score}} , function(err, user){
     if (err){
       console.log(err);
       return;
     }
-
     if (!user){
       console.log("User Not Found");
       return res.redirect("/");
@@ -93,7 +92,89 @@ app.post('/addresults', function(req, res){
   });
 });
 
+app.post('/nassau', function(req, res){
+  User.findOneAndUpdate({ email: req.body.email.toLowerCase()}, {$push:{nassautotals: req.body.nassautotals, scores: req.body.score}} , function(err, user){
+    if (err){
+      console.log(err);
+      return;
+    }
+    if (!user){
+      console.log("User Not Found");
+      return res.redirect("/");
+    }
+    res.json(user);
+  });
+});
 
+app.post('/roundrobin', function(req, res){
+  User.findOneAndUpdate({ email: req.body.email.toLowerCase()}, {$push:{roundrobintotals: req.body.roundrobintotals,  scores: req.body.score}} , function(err, user){
+    if (err){
+      console.log(err);
+      return;
+    }
+    if (!user){
+      console.log("User Not Found");
+      return res.redirect("/");
+    }
+    res.json(user);
+  });
+});
+
+app.post('/nines', function(req, res){
+  User.findOneAndUpdate({ email: req.body.email.toLowerCase()}, {$push:{ninestotals: req.body.ninestotals, scores: req.body.score}} , function(err, user){
+    if (err){
+      console.log(err);
+      return;
+    }
+    if (!user){
+      console.log("User Not Found");
+      return res.redirect("/");
+    }
+    res.json(user);
+  });
+});
+
+app.post('/skins', function(req, res){
+  User.findOneAndUpdate({ email: req.body.email.toLowerCase()}, {$push:{ skinstotals: req.body.skinstotals, scores: req.body.score}} , function(err, user){
+    if (err){
+      console.log(err);
+      return;
+    }
+    if (!user){
+      console.log("User Not Found");
+      return res.redirect("/");
+    }
+    res.json(user);
+  });
+});
+
+app.post('/matchplay', function(req, res){
+  User.findOneAndUpdate({ email: req.body.email.toLowerCase()}, {$push:{ matchplaytotals: req.body.matchplaytotals, scores: req.body.score}} , function(err, user){
+    if (err){
+      console.log(err);
+      return;
+    }
+    if (!user){
+      console.log("User Not Found");
+      return res.redirect("/");
+    }
+    res.json(user);
+  });
+});
+
+app.post('/justkeepscore', function(req, res){
+  User.findOneAndUpdate({ email: req.body.email.toLowerCase()}, {$push:{ scores: req.body.score}} , function(err, user){
+    if (err){
+      console.log(err);
+      return;
+    }
+    if (!user){
+      console.log("User Not Found");
+      return res.redirect("/");
+    }
+    res.json(user);
+  });
+});
 
 
 // add course to database
