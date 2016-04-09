@@ -9,7 +9,7 @@ var Course  = require('./models/course');
 // var fs = require('fs');
 // var data = JSON.parse(fs.readFileSync("SocalRegionCourses.json", 'utf8'));
 
-mongoose.connect(process.env['mongodb://Kaiser:kk931988@ds011248.mongolab.com:11248/golfapp'], function(err){
+mongoose.connect('mongodb://Kaiser:kk931988@ds011248.mongolab.com:11248/golfapp', function(err){
   if (err) {
     console.log(err);
   } else {
