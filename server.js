@@ -9,7 +9,7 @@ var Course  = require('./models/course');
 // var fs = require('fs');
 // var data = JSON.parse(fs.readFileSync("SocalRegionCourses.json", 'utf8'));
 
-mongoose.connect(secret.database, function(err){
+mongoose.connect(process.env.secret.database, function(err){
   if (err) {
     console.log(err);
   } else {
