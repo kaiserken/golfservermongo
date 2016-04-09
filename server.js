@@ -257,7 +257,7 @@ app.post('/courseinfo', function(req, res){
 
 
 
-app.listen(secret.port, function(err){
+app.listen(process.env.PORT || secret.port, function(err){
   if (err) throw err;
   console.log('Server is running!');
 });
