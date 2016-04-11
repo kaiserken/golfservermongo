@@ -13,7 +13,7 @@ var UserSchema = new Schema({
   roundrobintotals: [Number],
   matchplaytotals: [Number],
   ninestotals:[Number],
-  scores: [Number],
+  scores: [],
 });
 
 UserSchema.pre('save', function(next){
