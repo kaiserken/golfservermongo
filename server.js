@@ -62,6 +62,18 @@ app.post('/signin', function(req, res){
   });
 });
 
+app.post('/loggedin', function(req, res){
+  User.findOne({ email: req.body.email.toLowerCase()}, function(err, user){
+    if (err) return (err);
+
+    if (!user) {
+      console.log("Not Found");
+      return res.send("Not Found");
+    }
+    res.json(user);
+  });
+});
+
 // add favorite course to existing user
 app.post('/addfavorite', function(req, res){
   User.findOneAndUpdate({ email: req.body.email.toLowerCase()}, {$push:{favorites: req.body.coursename}} , function(err, user){
