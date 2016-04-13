@@ -193,7 +193,7 @@ app.post('/justkeepscore', function(req, res){
 app.post('/createcourse', function(req, res){
   var course  = new Course();
   course.coursename  = req.body.name;
-  course.city  = req.body.city;
+  course.city  = req.body.city.toLowerCase();
   course.state  = req.body.state;
   course.coursepar = req.body.par;
   course.coursehcp  = req.body.handicap;
